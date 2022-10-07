@@ -1,0 +1,22 @@
+- name: Application control functional verification
+  hosts: all
+  become: no
+  remote_user: user1
+
+  tasks:
+    - name: Collect a file to execute
+      ansible.builtin.get_url:
+        url: https://github.com/Code-Hex/Neo-cowsay/releases/download/v2.0.4/cowsay_2.0.4_Linux_x86_64.tar.gz
+        dest: /home/user1/cowsay.tar.gz
+
+    - name: Unarchive the tar-ball
+      ansible.builtin.unarchive:
+        src: cowsay.tar.gz
+        dest: /home/user1/
+
+    - name: Execute the binary
+      ansible.builtin.command: "/home/user1/cowsay 'moooooooo'"
+      register: cowsay_cmd
+      failed_when: cowsay_cmd.rc == 0
+
+    - debug: var=cowsay_cmd.rc
