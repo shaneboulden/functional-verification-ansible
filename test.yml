@@ -24,3 +24,15 @@
         - name: Catch any failures
           ansible.builtin.debug:
             msg: "The verification test failed! You should definitely investigate this."  
+
+      always:
+        - name: Clean up testing files
+          ansible.builtin.file:
+            state: absent
+            dest: "{{ item }}"
+          loop:
+            - /home/user1/cowsay
+            - /home/user1/cowthink
+            - /home/user1/cowsay.tar.gz
+            - /home/user1/LICENSE
+            - /home/user1/doc
