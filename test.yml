@@ -14,6 +14,7 @@
         ansible.builtin.unarchive:
           src: cowsay.tar.gz
           dest: /home/user1/
+          remote_src: yes
 
       - name: Execute the binary
         ansible.builtin.command: "/home/user1/cowsay 'moooooooo'"
