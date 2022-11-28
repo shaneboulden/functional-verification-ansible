@@ -18,7 +18,7 @@
           remote_src: yes
 
       - name: Execute the binary
-        ansible.builtin.command: "/home/user1/cowsay 'moooooooo'"
+        ansible.builtin.command: "runuser -u user1 /home/user1/cowsay 'moooooooo'"
         register: cowsay_cmd
         failed_when: cowsay_cmd.rc == 0
 
