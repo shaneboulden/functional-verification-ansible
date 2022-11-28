@@ -1,6 +1,7 @@
 - name: Application control functional verification
   hosts: all
-  become: no
+  become: yes
+  gather_facts: no
   remote_user: user1
 
   tasks:
