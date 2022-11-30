@@ -34,7 +34,6 @@
             dest: "{{ item }}"
           loop:
             - /home/user1/cowsay
-            - /home/user1/cowthink
             - /home/user1/cowsay.tar.gz
             - /home/user1/LICENSE
             - /home/user1/doc
