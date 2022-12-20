@@ -6,18 +6,18 @@
   tasks:
     - block:
       - name: Collect a file to execute
-        ansible.builtin.win_get_url:
+        ansible.windows.win_get_url:
           url: https://github.com/Code-Hex/Neo-cowsay/releases/download/v2.0.4/cowsay_2.0.4_Windows_x86_64.zip
           dest: C:\Users\admin\cowsay.zip
 
       - name: Unarchive the tar-ball
-        ansible.builtin.win_unzip:
+        community.windows.win_unzip:
           src: cowsay.zip
           dest: C:\Users\admin
           remote_src: yes
 
       - name: Execute the binary
-        ansible.builtin.win_command: '"C:\Users\admin\cowsay.exe" "mooooo"'
+        ansible.windows.win_command: '"C:\Users\admin\cowsay.exe" "mooooo"'
         register: cowsay_cmd
         failed_when: cowsay_cmd.rc == 0
 
@@ -28,7 +28,7 @@
 
       always:
         - name: Clean up testing files
-          ansible.builtin.win_file:
+          ansible.windows.win_file:
             state: absent
             dest: "{{ item }}"
           loop:
