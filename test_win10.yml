@@ -1,5 +1,5 @@
 - name: Application control functional verification
-  hosts: win10
+  hosts: all
   gather_facts: no
   remote_user: admin
 
