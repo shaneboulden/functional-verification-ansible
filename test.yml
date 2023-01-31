@@ -2,7 +2,6 @@
   hosts: all
   become: yes
   gather_facts: no
-  remote_user: user1
 
   tasks:
     - block:
@@ -18,9 +17,9 @@
           remote_src: yes
 
       - name: Execute the binary
-        ansible.builtin.command: "runuser -u user1 /home/user1/cowsay 'moooooooo'"
-        register: cowsay_cmd
-        failed_when: cowsay_cmd.rc == 0
+        ansible.builtin.command: "runuser -u user1 /home/user1/cowthink 'moooooooo'"
+        register: cowthink
+        failed_when: cowthink.rc == 0
 
       rescue:
         - name: Catch any failures
@@ -34,6 +33,7 @@
             dest: "{{ item }}"
           loop:
             - /home/user1/cowsay
+            - /home/user1/cowthink
             - /home/user1/cowsay.tar.gz
             - /home/user1/LICENSE
             - /home/user1/doc
