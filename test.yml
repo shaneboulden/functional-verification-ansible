@@ -12,7 +12,7 @@
 
       - name: Unarchive the tar-ball
         ansible.builtin.unarchive:
-          src: cowsay.tar.gz
+          src: /home/user1/cowsay.tar.gz
           dest: /home/user1/
           remote_src: yes
 
