@@ -1,0 +1,13 @@
+---
+- name: URL auth verification
+  hosts: all
+  become: no
+  gather_facts: no
+
+  tasks:
+    - name: Verify a response from a URL
+      ansible.builtin.uri:
+        url: "{{ url }}" 
+        method: GET
+        validate_certs: yes
+        status_code: 401

@@ -1,0 +1,34 @@
+- name: Application control functional verification
+  hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - block:
+      - name: Collect a file to execute
+        ansible.builtin.get_url:
+          url: http://192.168.122.81/cowsay_2.0.4_Linux_x86_64.tar.gz
+          dest: /home/user1/cowsay.tar.gz
+
+      - name: Unarchive the tar-ball
+        ansible.builtin.unarchive:
+          src: /home/user1/cowsay.tar.gz
+          dest: /home/user1/
+          remote_src: yes
+
+      - name: Execute the binary
+        ansible.builtin.command: "runuser -u user1 /home/user1/cowthink 'moooooooo'"
+        register: cowthink
+        failed_when: cowthink.rc == 0
+
+      always:
+        - name: Clean up testing files
+          ansible.builtin.file:
+            state: absent
+            dest: "{{ item }}"
+          loop:
+            - /home/user1/cowsay
+            - /home/user1/cowthink
+            - /home/user1/cowsay.tar.gz
+            - /home/user1/LICENSE
+            - /home/user1/doc
