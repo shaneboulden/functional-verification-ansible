@@ -1,7 +1,6 @@
 - name: Application control functional verification
   hosts: all
   gather_facts: no
-  remote_user: "{{ user }}"
 
   tasks:
     - block:
