@@ -1,23 +1,23 @@
 - name: Application control functional verification
   hosts: all
   gather_facts: no
-  remote_user: admin
+  remote_user: "{{ user }}"
 
   tasks:
     - block:
       - name: Collect a file to execute
         ansible.windows.win_get_url:
           url: https://github.com/Code-Hex/Neo-cowsay/releases/download/v2.0.4/cowsay_2.0.4_Windows_x86_64.zip
-          dest: "C:\Users\{{ user }}\cowsay.zip"
+          dest: "C:\\Users\\{{ user }}\\cowsay.zip"
 
       - name: Unarchive the tar-ball
         community.windows.win_unzip:
           src: cowsay.zip
-          dest: "C:\Users\{{ user }}"
+          dest: "C:\\Users\\{{ user }}"
           remote_src: yes
 
       - name: Execute the binary
-        ansible.windows.win_command: "C:\Users\{{ user }}\cowsay.exe" "mooooo"
+        ansible.windows.win_command: "C:\\Users\\{{ user }}\\cowsay.exe mooooo"
         register: cowsay_cmd
         failed_when: cowsay_cmd.rc == 0
 
@@ -27,7 +27,7 @@
             state: absent
             dest: "{{ item }}"
           loop:
-            - "C:\Users\{{ user }}\cowsay.zip"
-            - "C:\Users\{{ user }}\cowsay.exe"
-            - "C:\Users\{{ user }}\LICENSE"
-            - "C:\Users\{{ user }}\doc"
+            - "C:\\Users\\{{ user }}\\cowsay.zip"
+            - "C:\\Users\\{{ user }}\\cowsay.exe"
+            - "C:\\Users\\{{ user }}\\LICENSE"
+            - "C:\\Users\\{{ user }}\\doc"
